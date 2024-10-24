@@ -1,0 +1,5 @@
+aws_region = "us-east-1"
+vpc_cidr_block = "10.0.0.0/25"
+public_subnet_cidr_block = "10.0.0.0/27"
+private_subnet_cidr_block = "10.0.0.64/27"
+private_subnet_2_cidr_block = "10.0.0.96/27"
