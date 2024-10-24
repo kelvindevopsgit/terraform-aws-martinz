@@ -1,0 +1,42 @@
+name: Terraform CI/CD
+
+on:
+  push:
+    branches:
+      - main  # The workflow will trigger on every push to the main branch
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Install Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.4.0  # specify your required version
+
+      # Step 3: Configure AWS credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: "us-east-1"  # specify the AWS region
+
+      # Step 4: Initialize Terraform
+      - name: Terraform Init
+        run: terraform init
+
+      # Step 5: Terraform Plan (optional, to show the changes in PRs)
+      - name: Terraform Plan
+        run: terraform plan
+
+      # Step 6: Apply the Terraform Plan
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'  # Only apply on the main branch
+        run: terraform apply -auto-approve
