@@ -1,0 +1,22 @@
+# Terraform directories and files
+.terraform/
+.terraform.lock.hcl
+
+# Ignore state files
+*.tfstate
+*.tfstate.backup
+
+# Ignore variables files that contain sensitive data
+*.tfvars
+*.tfvars.json
+
+# Ignore plan output files
+*.tfplan
+
+# Ignore crash log files
+crash.log
+
+# Ignore provider binaries
+*.exe
+*.zip
+*.tar.gz
